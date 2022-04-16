@@ -1,0 +1,176 @@
+(function (modules) {
+  const installedModules = {}
+
+  const installedChunks = {
+    'main': 0
+  }
+
+  function webpackJsonpCallback(data) {
+    const chunkIds = data[0]
+    const moreModules = data[1]
+
+    let moduleId, chunkId, i = 0, resolves = []
+
+    for (; i < chunkIds.length; i++) {
+      chunkId = chunkIds[i]
+
+      if (Object.prototype.hasOwnProperty.call(installedChunks, chunkId) && installedChunks[chunkId]) {
+        resolves.push(installedChunks[chunkId][0])
+      }
+
+      installedChunks[chunkId] = 0
+    }
+
+    for (moduleId in moreModules) {
+      if (Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+        modules[moduleId] = moreModules[moduleId]
+      }
+    }
+
+    while(resolves.length) {
+      resolves.shift()()
+    }
+  }
+
+  function jsonpScriptSrc(chunkId) {
+    return __webpack_require__.p + '' + chunkId + '.built.js'
+  }
+
+  function __webpack_require__(moduleId) {
+    if (installedModules[moduleId]) {
+      return installedModules[moduleId].exports
+    }
+
+    const module = installedModules[moduleId] = {
+      i: moduleId,
+      l: false,
+      exports: {}
+    }
+
+    modules[moduleId].call(module.exports, module, module.exports, __webpack_require__)
+
+    module.l = true
+
+    return module.exports
+  }
+
+  __webpack_require__.m = modules
+  __webpack_require__.c = installedModules
+
+  __webpack_require__.e = function (chunkId) {
+    const promises = []
+
+    let installedChunkData = installedChunks[chunkId]
+
+    if (installedChunkData !== 0) {
+      if (installedChunkData) {
+        promises.push(installedChunkData[2])
+      } else {
+        const promise = new Promise(function (resolve, reject) {
+          installedChunkData = installedChunks[chunkId] = [resolve, reject]
+        })
+
+        promises.push(installedChunkData[2] = promise)
+
+        const script = document.createElement('script')
+
+        script.charet = 'utf-8'
+        script.timeout = 120
+
+        script.src = jsonpScriptSrc(chunkId)
+
+        document.head.appendChild(script)
+      }
+    }
+
+    return Promise.all(promises)
+  }
+
+  __webpack_require__.o = function (object, property) {
+    return Object.prototype.hasOwnProperty.call(object, property)
+  }
+
+  __webpack_require__.d = function (exports, name, getter) {
+    if (!__webpack_require__.o(exports, name)) {
+      Object.defineProperty(exports, name, {
+        enumerable: true,
+        get: getter
+      })
+    }
+  }
+
+  __webpack_require__.r = function (exports) {
+    if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+      Object.defineProperty(exports, Symbol.toStringTag, {
+        value: 'Module'
+      })
+    }
+
+    Object.defineProperty(exports, '__esModule', { value: true })
+  }
+
+  __webpack_require__.t = function (value, mode) {
+    if (mode & 1) {
+      value = __webpack_require__(value)
+    }
+
+    if (mode & 8) {
+      return value
+    }
+
+    if ((mode & 4) && typeof value === 'object' && value && value.__esModule) {
+      return value
+    }
+
+    const ns = Object.create(null)
+
+    __webpack_require__.r(ns)
+
+    Object.defineProperty(ns, 'default', {
+      enumerable: true,
+      value
+    })
+
+    if (mode & 2 && typeof value !== 'string') {
+      for (const key in value) {
+        __webpack_require__.d(ns, key, function (key) {
+          return value[key]
+        }.bind(null, key))
+      }
+    }
+
+    return ns
+  }
+
+  __webpack_require__.n = function (module) {
+    const getter = module && module.__esModule
+      ? function getDefault() { return module['default'] }
+      : function getModuleExports() { return module }
+
+    __webpack_require__.d(getter, 'a', getter)
+
+    return getter
+  }
+
+  __webpack_require__.p = ''
+
+  let jsonpArray = window['webpackJsonp'] = window['webpackJsonp'] || []
+  const oldJsonpFunction = jsonpArray.push.bind(jsonpArray)
+
+  jsonpArray.push = webpackJsonpCallback
+  jsonpArray = jsonpArray.slice()
+
+  return __webpack_require__(__webpack_require__.s = './src/index.js')
+})({
+  './src/index.js': (function (module, __webpack_exports__, __webpack_require__) {
+    const oBtn = document.getElementById('btn')
+
+    oBtn.addEventListener('click', function () {
+      __webpack_require__.e('login').then(__webpack_require__.t.bind(null, './src/login.js', 7)).then(login => {
+        console.log(login)
+      })
+    })
+
+    console.log('index')
+  })
+})
