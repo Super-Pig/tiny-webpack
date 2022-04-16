@@ -73,11 +73,15 @@ class Compiler extends Tapable {
       this.emitAssets(compilation, () => {
         finalCallback(err, new Stats(compilation))
       })
-
-      // finalCallback(err, new Stats(compilation))
     }
 
     this.hooks.beforeRun.callAsync(this, err => {
+      if (err) {
+        console.log(err)
+
+        return
+      }
+
       this.hooks.run.callAsync(this, err => {
         this.compile(onCompiled)
       })
@@ -87,7 +91,7 @@ class Compiler extends Tapable {
   compile(callback) {
     const params = this.newCompilationParams()
 
-    this.hooks.beforeRun.callAsync(params, err => {
+    this.hooks.beforeCompile.callAsync(params, err => {
       this.hooks.compile.call(params)
 
       const compilation = this.newCompilationParams(params)

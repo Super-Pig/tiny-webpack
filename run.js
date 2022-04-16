@@ -5,5 +5,5 @@ let compiler = webpack(options)
 
 compiler.run((err, stats) => {
   console.log(err)
-  console.log(stats.toJson())
+  // console.log(stats.toJson())
 })

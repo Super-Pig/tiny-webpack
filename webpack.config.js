@@ -1,4 +1,5 @@
 const path = require('path')
+const ClearWebpackPlugin = require('./plugins/ClearWebpackPlugin')
 
 module.exports = {
   context: process.cwd(),
@@ -8,5 +9,6 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve('dist')
-  }
+  },
+  plugins: [new ClearWebpackPlugin()]
 }
